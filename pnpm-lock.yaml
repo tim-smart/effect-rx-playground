@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@effect-rx/rx-react': ^0.1.17
+  '@effect-rx/rx-react': ^0.1.19
   '@effect/platform-browser': ^0.5.0
   '@effect/schema': ^0.36.3
   '@types/react': ^18.2.22
@@ -20,7 +20,7 @@ specifiers:
   vite: ^4.4.9
 
 dependencies:
-  '@effect-rx/rx-react': 0.1.17_ssocamdo2o6itmudz53u3z6lqe
+  '@effect-rx/rx-react': 0.1.19_ssocamdo2o6itmudz53u3z6lqe
   '@effect/platform-browser': 0.5.0_tdal7ze3nrxllbp5xf5m7wzghq
   '@effect/schema': 0.36.3_dh6thyx4kvdutqolkggrs3u73y
   effect: 2.0.0-next.34_flkfqhv27npbmlcyy3w3nzkbby
@@ -271,8 +271,8 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@effect-rx/rx-react/0.1.17_ssocamdo2o6itmudz53u3z6lqe:
-    resolution: {integrity: sha512-Pz/teXP0YxPBa5rtwAUuJpQVPWvablH8bNzQnZI2bzsgzEqlEfNTV1vRMAeODQENxtd+quXjqZIGwq9DALDQzA==}
+  /@effect-rx/rx-react/0.1.19_ssocamdo2o6itmudz53u3z6lqe:
+    resolution: {integrity: sha512-An1qGu6A223mQ5Ykj/yjvmNTbacYhVxY3INZNPIM6yGaWmNtFeIAqXLuoIUQWU3Zundf0fhJydcjHGBk28/6Iw==}
     peerDependencies:
       '@effect/data': ^0.18.5
       '@effect/io': ^0.40.1
