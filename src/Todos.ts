@@ -3,7 +3,7 @@ import { Context, Effect, Layer, Option, Stream } from "effect"
 import * as Http from "@effect/platform-browser/HttpClient"
 import * as Schema from "@effect/schema/Schema"
 
-class Todo extends Schema.Class<Todo>()({
+export class Todo extends Schema.Class<Todo>()({
   id: Schema.number,
   title: Schema.string,
   completed: Schema.boolean,
@@ -45,16 +45,18 @@ const make = Effect.gen(function* (_) {
 })
 
 export interface Todos extends Effect.Effect.Success<typeof make> {}
-export const Todos = Context.Tag<Todos>()
-export const TodosLive = Layer.effect(Todos, make).pipe(
-  Layer.use(Http.client.layer),
-)
+export const tag = Context.Tag<Todos>()
+export const layer = Layer.effect(tag, make).pipe(Layer.use(Http.client.layer))
 
-const todosRuntime = Rx.runtime(TodosLive)
+const todosRuntime = Rx.runtime(layer)
 
 export const perPage = Rx.state(5)
 
-export const todos = Rx.streamPull(
-  get => Stream.unwrap(Effect.map(Todos, _ => _.todos(get(perPage)))),
+export const stream = Rx.streamPull(
+  get => Stream.unwrap(Effect.map(tag, _ => _.todos(get(perPage)))),
   { runtime: todosRuntime },
 )
+export const isDone = Rx.readable(get => {
+  const r = get(stream)
+  return r._tag === "Success" && r.value.done
+})

@@ -1,44 +1,53 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useRx, useRxSuspenseSuccess, useSetRx } from "@effect-rx/rx-react"
+import {
+  useRx,
+  useRxSuspenseSuccess,
+  useRxValue,
+  useSetRx,
+} from "@effect-rx/rx-react"
 import "./App.css"
-import { perPage, todos } from "./Todos"
+import * as Todos from "./Todos"
 import { Suspense } from "react"
 
 export default function App() {
   return (
     <>
       <Suspense fallback={<p>Loading...</p>}>
-        <Todos />
+        <TodoList />
       </Suspense>
-      <PageButton />
+      <PullButton />
       <br />
-      <PerPageInput />
+      <PerPageSelect />
     </>
   )
 }
 
-const Todos = () => {
-  const result = useRxSuspenseSuccess(todos)
+const TodoList = () => {
+  const result = useRxSuspenseSuccess(Todos.stream)
   return (
     <>
-      <p>Waiting: {result.isWaiting ? "Waiting" : "Loaded"}</p>
-      <p>Progress: {result.value.done ? "Done" : "More..."}</p>
       <ul>
         {result.value.items.map(todo => (
           <li key={todo.id}>{todo.title}</li>
         ))}
       </ul>
+      <p>{result.isWaiting ? "Waiting" : "Loaded"}</p>
+      <p>Progress: {result.value.done ? "Done" : "More..."}</p>
     </>
   )
 }
 
-const PageButton = () => {
-  const pull = useSetRx(todos)
-  return <button onClick={() => pull()}>Pull more</button>
+const PullButton = () => {
+  const pull = useSetRx(Todos.stream)
+  const done = useRxValue(Todos.isDone)
+  return (
+    <button onClick={() => pull()} disabled={done}>
+      Pull more
+    </button>
+  )
 }
 
-const PerPageInput = () => {
-  const [n, set] = useRx(perPage)
+const PerPageSelect = () => {
+  const [n, set] = useRx(Todos.perPage)
   return (
     <>
       <label>
@@ -47,7 +56,7 @@ const PerPageInput = () => {
           <option value={5}>5</option>
           <option value={10}>10</option>
           <option value={20}>20</option>
-          <option value={50}>50</option>
+          <option value={55}>55</option>
         </select>
       </label>
     </>
