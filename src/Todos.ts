@@ -48,10 +48,11 @@ export interface Todos extends Effect.Effect.Success<typeof make> {}
 export const tag = Context.Tag<Todos>()
 export const layer = Layer.effect(tag, make).pipe(Layer.use(Http.client.layer))
 
-const todosRuntime = Rx.runtime(layer)
+// Rx exports
+
+const todosRuntime = Rx.runtime(layer, { autoDispose: true })
 
 export const perPage = Rx.state(5)
-
 export const stream = Rx.streamPull(
   get => Stream.unwrap(Effect.map(tag, _ => _.todos(get(perPage)))),
   { runtime: todosRuntime },

@@ -25,11 +25,14 @@ const TodoList = () => {
   const result = useRxSuspenseSuccess(Todos.stream)
   return (
     <>
-      <ul>
+      <div style={{ textAlign: "left" }}>
         {result.value.items.map(todo => (
-          <li key={todo.id}>{todo.title}</li>
+          <p key={todo.id}>
+            <input checked={todo.completed} type="checkbox" />
+            &nbsp;{todo.title}
+          </p>
         ))}
-      </ul>
+      </div>
       <p>{result.isWaiting ? "Waiting" : "Loaded"}</p>
       <p>Progress: {result.value.done ? "Done" : "More..."}</p>
     </>
