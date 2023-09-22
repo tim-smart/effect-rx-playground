@@ -6,7 +6,9 @@ import {
 } from "@effect-rx/rx-react"
 import "./App.css"
 import * as Todos from "./Todos"
-import { Suspense } from "react"
+import { Suspense, useCallback } from "react"
+import { ValueNotifier } from "value-notifier-ts"
+import { useValueListenable } from "value-notifier-ts/react"
 
 export default function App() {
   return (
@@ -27,15 +29,25 @@ const TodoList = () => {
     <>
       <div style={{ textAlign: "left" }}>
         {result.value.items.map(todo => (
-          <p key={todo.id}>
-            <input checked={todo.completed} type="checkbox" />
-            &nbsp;{todo.title}
-          </p>
+          <Todo key={todo.value.id} notifier={todo} />
         ))}
       </div>
       <p>{result.isWaiting ? "Waiting" : "Loaded"}</p>
       <p>Progress: {result.value.done ? "Done" : "More..."}</p>
     </>
+  )
+}
+
+function Todo({ notifier }: { readonly notifier: ValueNotifier<Todos.Todo> }) {
+  const todo = useValueListenable(notifier)
+  const toggle = useCallback(() => {
+    notifier.update(todo => ({ ...todo, completed: !todo.completed }))
+  }, [notifier])
+  return (
+    <p>
+      <input checked={todo.completed} type="checkbox" onChange={toggle} />
+      &nbsp;{todo.title}
+    </p>
   )
 }
 

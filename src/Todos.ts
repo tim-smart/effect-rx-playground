@@ -2,6 +2,7 @@ import { Rx } from "@effect-rx/rx-react"
 import { Context, Effect, Layer, Option, Stream } from "effect"
 import * as Http from "@effect/platform-browser/HttpClient"
 import * as Schema from "@effect/schema/Schema"
+import { valueNotifier } from "value-notifier-ts"
 
 export class Todo extends Schema.Class<Todo>()({
   id: Schema.number,
@@ -54,7 +55,10 @@ const todosRuntime = Rx.runtime(layer, { autoDispose: true })
 
 export const perPage = Rx.state(5)
 export const stream = Rx.streamPull(
-  get => Stream.unwrap(Effect.map(tag, _ => _.todos(get(perPage)))),
+  get =>
+    Stream.unwrap(Effect.map(tag, _ => _.todos(get(perPage)))).pipe(
+      Stream.map(valueNotifier),
+    ),
   { runtime: todosRuntime },
 )
 export const isDone = Rx.readable(get => {

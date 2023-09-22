@@ -23,6 +23,9 @@ dependencies:
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
+  value-notifier-ts:
+    specifier: ^0.1.15
+    version: 0.1.15(react@18.2.0)
 
 devDependencies:
   '@types/react':
@@ -1867,6 +1870,17 @@ packages:
     dependencies:
       punycode: 2.3.0
     dev: true
+
+  /value-notifier-ts@0.1.15(react@18.2.0):
+    resolution: {integrity: sha512-KLfvIJma3Ot2vgt5DTlAT75DF1rD14o8euH3Wq04ngTfI8sDKiPlUcWJWWUH+K27GVnctAqlLRxaR0xeLg2ICA==}
+    peerDependencies:
+      react: '*'
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /vite@4.4.9:
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
