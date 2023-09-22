@@ -6,14 +6,14 @@ settings:
 
 dependencies:
   '@effect-rx/rx-react':
-    specifier: ^0.1.21
-    version: 0.1.21(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/stream@0.36.1)(react@18.2.0)
+    specifier: ^0.1.24
+    version: 0.1.24(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/stream@0.36.1)(react@18.2.0)
   '@effect/platform-browser':
     specifier: ^0.5.0
-    version: 0.5.0(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/schema@0.36.4)(@effect/stream@0.36.1)
+    version: 0.5.0(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/schema@0.36.5)(@effect/stream@0.36.1)
   '@effect/schema':
-    specifier: ^0.36.4
-    version: 0.36.4(@effect/data@0.18.5)(@effect/io@0.40.3)
+    specifier: ^0.36.5
+    version: 0.36.5(@effect/data@0.18.5)(@effect/io@0.40.3)
   effect:
     specifier: 2.0.0-next.34
     version: 2.0.0-next.34(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/match@0.35.2)(@effect/stm@0.24.0)(@effect/stream@0.36.1)
@@ -23,9 +23,6 @@ dependencies:
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
-  value-notifier-ts:
-    specifier: ^0.1.15
-    version: 0.1.15(react@18.2.0)
 
 devDependencies:
   '@types/react':
@@ -293,23 +290,23 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@effect-rx/rx-react@0.1.21(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/stream@0.36.1)(react@18.2.0):
-    resolution: {integrity: sha512-BysFifjmKb0wkAmebWvxHT+hXpeWco6HP4sSbGbONSpeHZe+6ixaCvHL2n6n0mDoIyq/Gk+Q2CRPEcIfgvpDkg==}
+  /@effect-rx/rx-react@0.1.24(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/stream@0.36.1)(react@18.2.0):
+    resolution: {integrity: sha512-1EoN6pPppoAUBVWqOfMXIsh50ZMRFkSx0XinsOzPQBErPAPIm0moqGxMKpGRhRfBZiBHSdZtKEz4seUYZ6kA7w==}
     peerDependencies:
       '@effect/data': ^0.18.5
       '@effect/io': ^0.40.1
       '@effect/stream': ^0.36.0
       react: ^18
     dependencies:
-      '@effect-rx/rx': 0.1.17(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/stream@0.36.1)
+      '@effect-rx/rx': 0.1.20(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/stream@0.36.1)
       '@effect/data': 0.18.5
       '@effect/io': 0.40.3(@effect/data@0.18.5)
       '@effect/stream': 0.36.1(@effect/data@0.18.5)(@effect/io@0.40.3)
       react: 18.2.0
     dev: false
 
-  /@effect-rx/rx@0.1.17(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/stream@0.36.1):
-    resolution: {integrity: sha512-Pm4giLP/2S4Xf+ESY9JfUF20tZFKK+Knb3DwKjA/w6ckYHdX3dU1dm4ZWfJIJp77PD6MPjPfI0TRe4NHFhnU5Q==}
+  /@effect-rx/rx@0.1.20(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/stream@0.36.1):
+    resolution: {integrity: sha512-Gd7cnDFGoA02qz5xuAjcxHxG2EppJa4wFiUCWgPven3SvvnxZZQp01I0vJ3/HcvGspG+t7g86WFRmRIvbRqjgg==}
     peerDependencies:
       '@effect/data': ^0.18.5
       '@effect/io': ^0.40.1
@@ -340,7 +337,7 @@ packages:
       '@effect/data': 0.18.5
     dev: false
 
-  /@effect/platform-browser@0.5.0(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/schema@0.36.4)(@effect/stream@0.36.1):
+  /@effect/platform-browser@0.5.0(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/schema@0.36.5)(@effect/stream@0.36.1):
     resolution: {integrity: sha512-7+xjUUIgn9Qx9+HwKaJoS5vMrz5atkIuQv47aOg7Uy5nLRnaCqxBqloZ9UaysO8BZVMH8/oS7m5tVJNsEWNeKw==}
     peerDependencies:
       '@effect/data': ^0.18.5
@@ -348,13 +345,13 @@ packages:
     dependencies:
       '@effect/data': 0.18.5
       '@effect/io': 0.40.3(@effect/data@0.18.5)
-      '@effect/platform': 0.16.1(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/schema@0.36.4)(@effect/stream@0.36.1)
+      '@effect/platform': 0.16.1(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/schema@0.36.5)(@effect/stream@0.36.1)
     transitivePeerDependencies:
       - '@effect/schema'
       - '@effect/stream'
     dev: false
 
-  /@effect/platform@0.16.1(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/schema@0.36.4)(@effect/stream@0.36.1):
+  /@effect/platform@0.16.1(@effect/data@0.18.5)(@effect/io@0.40.3)(@effect/schema@0.36.5)(@effect/stream@0.36.1):
     resolution: {integrity: sha512-zbtHiWGA2IbxU6WzoMM1bAKSeLyfHrnPZO/d0DC1bPodutt60tgh1oUJUaTi4fPsksplxomuzNnIIfAwWfiqPA==}
     peerDependencies:
       '@effect/data': ^0.18.5
@@ -364,14 +361,14 @@ packages:
     dependencies:
       '@effect/data': 0.18.5
       '@effect/io': 0.40.3(@effect/data@0.18.5)
-      '@effect/schema': 0.36.4(@effect/data@0.18.5)(@effect/io@0.40.3)
+      '@effect/schema': 0.36.5(@effect/data@0.18.5)(@effect/io@0.40.3)
       '@effect/stream': 0.36.1(@effect/data@0.18.5)(@effect/io@0.40.3)
       find-my-way: 7.6.2
       path-browserify: 1.0.1
     dev: false
 
-  /@effect/schema@0.36.4(@effect/data@0.18.5)(@effect/io@0.40.3):
-    resolution: {integrity: sha512-lK6kJxpYHrBfZRehKaKxLzRhe/8M9KYEvVIJQsVni1T38GqELo8WeqKw35HNTer8KQykn8O+RR7jV07Fk1E0rQ==}
+  /@effect/schema@0.36.5(@effect/data@0.18.5)(@effect/io@0.40.3):
+    resolution: {integrity: sha512-E8KZ17DqZJl7E/eEVTkxb2NEv6vYhab79HugHi10krd2Gm3vOJvWs+nRgtPhI+0dvkXVxzCcY8bLfkND2F0rBg==}
     peerDependencies:
       '@effect/data': ^0.18.5
       '@effect/io': ^0.40.1
@@ -1870,17 +1867,6 @@ packages:
     dependencies:
       punycode: 2.3.0
     dev: true
-
-  /value-notifier-ts@0.1.15(react@18.2.0):
-    resolution: {integrity: sha512-KLfvIJma3Ot2vgt5DTlAT75DF1rD14o8euH3Wq04ngTfI8sDKiPlUcWJWWUH+K27GVnctAqlLRxaR0xeLg2ICA==}
-    peerDependencies:
-      react: '*'
-    peerDependenciesMeta:
-      react:
-        optional: true
-    dependencies:
-      react: 18.2.0
-    dev: false
 
   /vite@4.4.9:
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}

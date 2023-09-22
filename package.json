@@ -10,13 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@effect-rx/rx-react": "^0.1.21",
+    "@effect-rx/rx-react": "^0.1.24",
     "@effect/platform-browser": "^0.5.0",
-    "@effect/schema": "^0.36.4",
+    "@effect/schema": "^0.36.5",
     "effect": "2.0.0-next.34",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "value-notifier-ts": "^0.1.15"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.22",
