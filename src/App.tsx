@@ -2,9 +2,9 @@ import {
   RxRef,
   useRx,
   useRxRef,
+  useRxSet,
   useRxSuspenseSuccess,
   useRxValue,
-  useSetRx,
 } from "@effect-rx/rx-react"
 import "./App.css"
 import * as Todos from "./Todos"
@@ -52,7 +52,7 @@ function Todo({ todoRef }: { readonly todoRef: RxRef.RxRef<Todos.Todo> }) {
 }
 
 const PullButton = () => {
-  const pull = useSetRx(Todos.stream)
+  const pull = useRxSet(Todos.stream)
   const done = useRxValue(Todos.isDone)
   return (
     <button onClick={() => pull()} disabled={done}>

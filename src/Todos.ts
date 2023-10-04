@@ -54,10 +54,12 @@ const todosRuntime = Rx.runtime(layer, { autoDispose: true })
 
 export const perPage = Rx.state(5)
 export const stream = Rx.streamPull(
-  get =>
-    Stream.unwrap(Effect.map(tag, _ => _.todos(get(perPage)))).pipe(
+  get => {
+    console.trace("rebuilding")
+    return Stream.unwrap(Effect.map(tag, _ => _.todos(get(perPage)))).pipe(
       Stream.map(RxRef.make),
-    ),
+    )
+  },
   { runtime: todosRuntime },
 )
 export const isDone = Rx.readable(get => {
