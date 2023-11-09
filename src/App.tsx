@@ -32,7 +32,7 @@ const TodoList = () => {
           <Todo key={todo.value.id} todoRef={todo} />
         ))}
       </div>
-      <p>{result.isWaiting ? "Waiting" : "Loaded"}</p>
+      <p>{result.waiting ? "Waiting" : "Loaded"}</p>
       <p>Progress: {result.value.done ? "Done" : "Has more"}</p>
     </>
   )
