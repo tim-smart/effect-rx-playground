@@ -50,20 +50,18 @@ export const layer = Layer.effect(tag, make).pipe(Layer.use(Http.client.layer))
 
 // Rx exports
 
-const todosRuntime = Rx.runtime(() => layer, { autoDispose: true })
+const todosRuntime = Rx.make(layer)
 
-export const perPage = Rx.state(5)
+export const perPage = Rx.make(5)
 
-export const stream = Rx.streamPull(
-  get =>
-    Stream.unwrap(Effect.map(tag, _ => _.todos(get(perPage)))).pipe(
-      // uncomment to preload the next page
-      // Stream.bufferChunks({ capacity: 1 }),
-      Stream.map(RxRef.make),
-    ),
-  { runtime: todosRuntime },
+export const stream = todosRuntime.pull(get =>
+  Stream.unwrap(Effect.map(tag, _ => _.todos(get(perPage)))).pipe(
+    // uncomment to preload the next page
+    Stream.bufferChunks({ capacity: 1 }),
+    Stream.map(RxRef.make),
+  ),
 )
-export const isDone = Rx.readable(get => {
+export const isDone = Rx.make(get => {
   const r = get(stream)
   return r._tag === "Success" && r.value.done
 })
