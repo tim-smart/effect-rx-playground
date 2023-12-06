@@ -46,7 +46,9 @@ const make = Effect.gen(function* (_) {
 
 export interface Todos extends Effect.Effect.Success<typeof make> {}
 export const tag = Context.Tag<Todos>()
-export const layer = Layer.effect(tag, make).pipe(Layer.use(Http.client.layer))
+export const layer = Layer.effect(tag, make).pipe(
+  Layer.provide(Http.client.layer),
+)
 
 // Rx exports
 
@@ -56,7 +58,7 @@ export const perPage = Rx.make(5)
 
 export const stream = todosRuntime.pull(get =>
   Stream.unwrap(Effect.map(tag, _ => _.todos(get(perPage)))).pipe(
-    // uncomment to preload the next page
+    // preload the next page
     Stream.bufferChunks({ capacity: 1 }),
     Stream.map(RxRef.make),
   ),
