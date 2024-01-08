@@ -58,8 +58,8 @@ export const perPage = Rx.make(5)
 
 export const stream = todosRuntime.pull(get =>
   Stream.unwrap(Effect.map(tag, _ => _.todos(get(perPage)))).pipe(
-    // uncomment to preload the next page
-    Stream.bufferChunks({ capacity: 0 }),
+    // preload the next page
+    Stream.bufferChunks({ capacity: 1 }),
     Stream.map(RxRef.make),
   ),
 )
