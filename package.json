@@ -10,24 +10,24 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@effect-rx/rx-react": "^0.21.0",
-    "@effect/platform-browser": "^0.26.2",
-    "@effect/schema": "^0.57.2",
-    "effect": "2.0.2",
+    "@effect-rx/rx-react": "^0.27.1",
+    "@effect/platform": "^0.48.26",
+    "@effect/schema": "^0.64.19",
+    "effect": "2.4.18",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.47",
-    "@types/react-dom": "^18.2.18",
-    "@typescript-eslint/eslint-plugin": "^6.18.0",
-    "@typescript-eslint/parser": "^6.18.0",
-    "@vitejs/plugin-react": "^4.2.0",
-    "eslint": "^8.56.0",
+    "@types/react": "^18.2.74",
+    "@types/react-dom": "^18.2.24",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.4",
-    "prettier": "^3.1.1",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.11"
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.4",
+    "vite": "^5.2.8"
   }
 }
