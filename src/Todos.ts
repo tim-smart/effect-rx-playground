@@ -1,9 +1,9 @@
 import { Rx, RxRef } from "@effect-rx/rx-react"
-import * as Http from "@effect/platform-browser/HttpClient"
+import * as Http from "@effect/platform/HttpClient"
 import * as Schema from "@effect/schema/Schema"
 import { Context, Effect, Layer, Option, Stream } from "effect"
 
-export class Todo extends Schema.Class<Todo>()({
+export class Todo extends Schema.Class<Todo>("Todo")({
   id: Schema.number,
   title: Schema.string,
   completed: Schema.boolean,
@@ -32,6 +32,7 @@ const make = Effect.gen(function* (_) {
         }),
         client,
         Effect.flatMap(todosChunk),
+        Effect.scoped,
         Effect.map(chunk => [
           chunk,
           Option.some(page + 1).pipe(
@@ -44,25 +45,29 @@ const make = Effect.gen(function* (_) {
   return { todos } as const
 })
 
-export interface Todos extends Effect.Effect.Success<typeof make> {}
-export const tag = Context.Tag<Todos>()
-export const layer = Layer.effect(tag, make).pipe(
-  Layer.provide(Http.client.layer),
-)
+export class Todos extends Context.Tag("Todos")<
+  Todos,
+  Effect.Effect.Success<typeof make>
+  >() {
+  static Live = Layer.effect(Todos, make).pipe(
+    Layer.provide(Http.client.layer),
+  )
+ };
 
 // Rx exports
 
-const todosRuntime = Rx.make(layer)
+const todosRuntime = Rx.runtime(Todos.Live)
 
 export const perPage = Rx.make(5)
 
 export const stream = todosRuntime.pull(get =>
-  Stream.unwrap(Effect.map(tag, _ => _.todos(get(perPage)))).pipe(
+  Stream.unwrap(Effect.map(Todos, _ => _.todos(get(perPage)))).pipe(
     // preload the next page
     Stream.bufferChunks({ capacity: 1 }),
     Stream.map(RxRef.make),
   ),
 )
+
 export const isDone = Rx.make(get => {
   const r = get(stream)
   return r._tag === "Success" && r.value.done
