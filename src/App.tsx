@@ -33,7 +33,6 @@ const TodoList = () => {
         ))}
       </div>
       <p>{result.waiting ? "Waiting" : "Loaded"}</p>
-      <p>Progress: {result.value.done ? "Done" : "Has more"}</p>
     </>
   )
 }

@@ -1,19 +1,19 @@
 import { Rx, RxRef } from "@effect-rx/rx-react"
 import * as Http from "@effect/platform/HttpClient"
 import * as Schema from "@effect/schema/Schema"
-import { Context, Effect, Layer, Option, Stream } from "effect"
+import { Array, Effect, Layer, Option, Stream } from "effect"
 
 export class Todo extends Schema.Class<Todo>("Todo")({
-  id: Schema.number,
-  title: Schema.string,
-  completed: Schema.boolean,
+  id: Schema.Number,
+  title: Schema.String,
+  completed: Schema.Boolean,
 }) {
-  static readonly array = Schema.array(Todo)
-  static readonly chunk = Schema.chunk(Todo)
+  static readonly array = Schema.Array(Todo)
+  static readonly chunk = Schema.Chunk(Todo)
 }
 
-const make = Effect.gen(function* (_) {
-  const defaultClient = yield* _(Http.client.Client)
+const make = Effect.gen(function* () {
+  const defaultClient = yield* Http.client.Client
   const client = defaultClient.pipe(
     Http.client.mapRequest(
       Http.request.prependUrl("https://jsonplaceholder.typicode.com"),
@@ -42,17 +42,20 @@ const make = Effect.gen(function* (_) {
       ),
     )
 
-  return { todos } as const
+  const all = getTodos.pipe(
+    client,
+    Http.response.schemaBodyJsonScoped(Todo.array),
+  )
+
+  return { todos, all } as const
 })
 
-export class Todos extends Context.Tag("Todos")<
+export class Todos extends Effect.Tag("Todos")<
   Todos,
   Effect.Effect.Success<typeof make>
-  >() {
-  static Live = Layer.effect(Todos, make).pipe(
-    Layer.provide(Http.client.layer),
-  )
- };
+>() {
+  static Live = Layer.effect(Todos, make).pipe(Layer.provide(Http.client.layer))
+}
 
 // Rx exports
 
@@ -61,11 +64,15 @@ const todosRuntime = Rx.runtime(Todos.Live)
 export const perPage = Rx.make(5)
 
 export const stream = todosRuntime.pull(get =>
-  Stream.unwrap(Effect.map(Todos, _ => _.todos(get(perPage)))).pipe(
+  Stream.unwrap(Todos.todos(get(perPage))).pipe(
     // preload the next page
     Stream.bufferChunks({ capacity: 1 }),
     Stream.map(RxRef.make),
   ),
+)
+
+export const all = todosRuntime.rx(
+  Todos.all.pipe(Effect.map(Array.map(RxRef.make))),
 )
 
 export const isDone = Rx.make(get => {
