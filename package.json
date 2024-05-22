@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "packageManager": "pnpm@9.1.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -10,24 +11,27 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@effect-rx/rx-react": "^0.28.1",
-    "@effect/platform": "^0.52.1",
-    "@effect/schema": "^0.66.13",
-    "effect": "3.1.1",
+    "@effect-rx/rx-react": "^0.28.15",
+    "@effect/platform": "^0.53.12",
+    "@effect/platform-browser": "^0.33.27",
+    "@effect/schema": "^0.67.9",
+    "effect": "file:effect-3.2.2.tgz",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "scheduler": "^0.23.2"
   },
   "devDependencies": {
-    "@types/react": "^18.3.1",
+    "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^7.8.0",
-    "@typescript-eslint/parser": "^7.8.0",
+    "@types/scheduler": "^0.23.0",
+    "@typescript-eslint/eslint-plugin": "^7.10.0",
+    "@typescript-eslint/parser": "^7.10.0",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-react-refresh": "^0.4.6",
+    "eslint-plugin-react-refresh": "^0.4.7",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5",
-    "vite": "^5.2.10"
+    "vite": "^5.2.11"
   }
 }
