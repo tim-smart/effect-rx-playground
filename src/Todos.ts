@@ -1,7 +1,7 @@
-import { Rx, RxRef } from "@effect-rx/rx-react"
+import { Rx } from "@effect-rx/rx-react"
 import * as Http from "@effect/platform/HttpClient"
 import * as Schema from "@effect/schema/Schema"
-import { Array, Effect, Layer, Option, Stream } from "effect"
+import { Effect, Layer, Option, Stream } from "effect"
 
 export class Todo extends Schema.Class<Todo>("Todo")({
   id: Schema.Number,
@@ -23,7 +23,7 @@ const make = Effect.gen(function* () {
 
   const getTodos = Http.request.get("/todos")
   const todosChunk = Http.response.schemaBodyJson(Todo.chunk)
-  const todos = (perPage: number) =>
+  const stream = (perPage: number) =>
     Stream.paginateChunkEffect(1, page =>
       getTodos.pipe(
         Http.request.setUrlParams({
@@ -42,12 +42,12 @@ const make = Effect.gen(function* () {
       ),
     )
 
-  const all = getTodos.pipe(
+  const effect = getTodos.pipe(
     client,
     Http.response.schemaBodyJsonScoped(Todo.array),
   )
 
-  return { todos, all } as const
+  return { stream, effect } as const
 })
 
 export class Todos extends Effect.Tag("Todos")<
@@ -63,19 +63,17 @@ const todosRuntime = Rx.runtime(Todos.Live)
 
 export const perPage = Rx.make(5)
 
-export const stream = todosRuntime.pull(get =>
-  Stream.unwrap(Todos.todos(get(perPage))).pipe(
-    // preload the next page
-    Stream.bufferChunks({ capacity: 1 }),
-    Stream.map(RxRef.make),
-  ),
+export const stream = todosRuntime.pull(
+  get => Stream.unwrap(Todos.stream(get(perPage))),
+  // .pipe(
+  //   // preload the next page
+  //   Stream.bufferChunks({ capacity: 1 }),
+  // ),
 )
 
-export const all = todosRuntime.rx(
-  Todos.all.pipe(Effect.map(Array.map(RxRef.make))),
-)
+export const effect = todosRuntime.rx(Todos.effect)
 
-export const isDone = Rx.make(get => {
+export const streamIsDone = Rx.make(get => {
   const r = get(stream)
   return r._tag === "Success" && r.value.done
 })
