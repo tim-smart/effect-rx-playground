@@ -22,7 +22,6 @@ const make = Effect.gen(function* () {
   )
 
   const getTodos = Http.request.get("/todos")
-  const todosChunk = Http.response.schemaBodyJson(Todo.chunk)
   const stream = (perPage: number) =>
     Stream.paginateChunkEffect(1, page =>
       getTodos.pipe(
@@ -31,8 +30,7 @@ const make = Effect.gen(function* () {
           _limit: perPage.toString(),
         }),
         client,
-        Effect.flatMap(todosChunk),
-        Effect.scoped,
+        Http.response.schemaBodyJsonScoped(Todo.chunk),
         Effect.map(chunk => [
           chunk,
           Option.some(page + 1).pipe(
@@ -41,7 +39,6 @@ const make = Effect.gen(function* () {
         ]),
       ),
     )
-
   const effect = getTodos.pipe(
     client,
     Http.response.schemaBodyJsonScoped(Todo.array),
