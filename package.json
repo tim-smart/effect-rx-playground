@@ -11,11 +11,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@effect-rx/rx-react": "^0.30.11",
-    "@effect/platform": "0.57.0",
-    "@effect/platform-browser": "0.36.0",
-    "@effect/schema": "^0.67.22",
-    "effect": "3.3.1",
+    "@effect-rx/rx-react": "^0.36.1",
+    "@effect/platform": "0.84.11",
+    "@effect/platform-browser": "0.64.11",
+    "effect": "3.16.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "scheduler": "*"

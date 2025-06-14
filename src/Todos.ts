@@ -1,7 +1,6 @@
 import { Rx } from "@effect-rx/rx-react"
-import * as Http from "@effect/platform/HttpClient"
-import * as Schema from "@effect/schema/Schema"
-import { Effect, Layer, Option, Stream } from "effect"
+import { Effect, Layer, Option, Schema, Stream } from "effect"
+import { FetchHttpClient, HttpClient, HttpClientRequest, HttpClientResponse } from "@effect/platform"
 
 export class Todo extends Schema.Class<Todo>("Todo")({
   id: Schema.Number,
@@ -13,24 +12,24 @@ export class Todo extends Schema.Class<Todo>("Todo")({
 }
 
 const make = Effect.gen(function* () {
-  const defaultClient = yield* Http.client.Client
+  const defaultClient = yield* HttpClient.HttpClient
   const client = defaultClient.pipe(
-    Http.client.mapRequest(
-      Http.request.prependUrl("https://jsonplaceholder.typicode.com"),
+    HttpClient.mapRequest(
+      HttpClientRequest.prependUrl("https://jsonplaceholder.typicode.com"),
     ),
-    Http.client.filterStatusOk,
+    HttpClient.filterStatusOk,
   )
 
-  const getTodos = Http.request.get("/todos")
+  const getTodos = HttpClientRequest.get("/todos");
   const stream = (perPage: number) =>
     Stream.paginateChunkEffect(1, page =>
       getTodos.pipe(
-        Http.request.setUrlParams({
+        HttpClientRequest.setUrlParams({
           _page: page.toString(),
           _limit: perPage.toString(),
         }),
-        client,
-        Http.response.schemaBodyJsonScoped(Todo.chunk),
+        client.execute,
+        Effect.flatMap(HttpClientResponse.schemaBodyJson(Todo.chunk)),
         Effect.map(chunk => [
           chunk,
           Option.some(page + 1).pipe(
@@ -40,8 +39,8 @@ const make = Effect.gen(function* () {
       ),
     )
   const effect = getTodos.pipe(
-    client,
-    Http.response.schemaBodyJsonScoped(Todo.array),
+    client.execute,
+    Effect.flatMap(HttpClientResponse.schemaBodyJson(Todo.array)),
   )
 
   return { stream, effect } as const
@@ -51,7 +50,7 @@ export class Todos extends Effect.Tag("Todos")<
   Todos,
   Effect.Effect.Success<typeof make>
 >() {
-  static Live = Layer.effect(Todos, make).pipe(Layer.provide(Http.client.layer))
+  static Live = Layer.effect(Todos, make).pipe(Layer.provide(FetchHttpClient.layer))
 }
 
 // Rx exports
