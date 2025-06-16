@@ -1,17 +1,21 @@
-import * as Schema from "@effect/schema/Schema"
+import { Schema } from "effect"
 
 export class InitialMessage extends Schema.TaggedRequest<InitialMessage>()(
   "InitialMessage",
-  Schema.Never,
-  Schema.Void,
-  {},
+  {
+    failure: Schema.Never,
+    success: Schema.Void,
+    payload: {},
+  }
 ) {}
 
 export class GetId extends Schema.TaggedRequest<GetId>()(
   "GetId",
-  Schema.Never,
-  Schema.String,
-  { id: Schema.String },
+  {
+    failure: Schema.Never,
+    success: Schema.String,
+    payload: { id: Schema.String }
+  }
 ) {}
 
 export const Requests = Schema.Union(InitialMessage, GetId)
